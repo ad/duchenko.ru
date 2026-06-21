@@ -46,13 +46,16 @@
     --ink:#16202e;
     --navy:#1d2b40;
     --navy-2:#243650;
-    --gold:#b08948;
-    --gold-soft:#c8a36a;
-    --paper:#fbfaf7;
-    --paper-2:#f2efe9;
+    /* единый акцент (гранат): тёмный для светлых фонов, светлый dusty-rose для тёмных */
+    --gold:#8c2f39;
+    --gold-soft:#c98f97;
+    --paper:#f9f8f6;
+    --paper-2:#efece6;
     --line:#e2ddd3;
     --muted:#5f6b7a;
     --white:#ffffff;
+    /* единый радиус скруглений; окружности (50%) — задокументированное исключение */
+    --radius:4px;
     --serif:"Cormorant Garamond",Georgia,serif;
     --sans:"Inter",system-ui,-apple-system,sans-serif;
   }
@@ -73,19 +76,15 @@
   /* ACCESSIBILITY */
   .skip{
     position:absolute;left:8px;top:-60px;z-index:100;
-    background:var(--navy);color:var(--white);padding:11px 20px;border-radius:3px;
+    background:var(--navy);color:var(--white);padding:11px 20px;border-radius:var(--radius);
     font-size:14px;font-weight:600;transition:top .2s;
   }
   .skip:focus{top:8px}
   a:focus-visible,button:focus-visible,summary:focus-visible,.consent input:focus-visible{
-    outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;
+    outline:2px solid var(--gold);outline-offset:3px;border-radius:var(--radius);
   }
   .field input:focus-visible,.field textarea:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
-  .eyebrow{
-    font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:2.5px;
-    text-transform:uppercase;color:var(--gold);
-  }
 
   /* HEADER */
   header{
@@ -101,10 +100,11 @@
   .nav-links a:hover{color:var(--ink)}
   .nav-cta{
     font-size:14px;font-weight:600;color:var(--navy)!important;
-    border:1px solid var(--navy);padding:9px 20px;border-radius:2px;transition:.2s;
+    border:1px solid var(--navy);padding:9px 20px;border-radius:var(--radius);transition:.2s;
   }
   .nav-cta:hover{background:var(--navy);color:var(--white)!important}
-  .burger{display:none;font-size:24px;cursor:pointer;background:none;border:0;color:var(--ink)}
+  .burger{display:none;cursor:pointer;background:none;border:0;color:var(--ink);padding:0;line-height:0}
+  .burger svg{width:26px;height:26px;stroke-width:1.75}
 
   /* HERO */
   .hero{background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);padding:84px 0 72px}
@@ -115,7 +115,7 @@
   .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
   .btn{
     display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15.5px;
-    padding:15px 30px;border-radius:2px;transition:.22s;cursor:pointer;border:1px solid transparent;
+    padding:15px 30px;border-radius:var(--radius);transition:.22s;cursor:pointer;border:1px solid transparent;
   }
   .btn-primary{background:var(--navy);color:var(--white)}
   .btn-primary:hover{background:var(--navy-2);transform:translateY(-1px)}
@@ -164,9 +164,10 @@
   }
   .card:hover{transform:translateY(-4px);box-shadow:0 22px 50px -30px rgba(29,43,64,.4);border-color:var(--gold-soft)}
   .card .ic{
-    width:48px;height:48px;border-radius:3px;background:var(--navy);color:var(--gold-soft);
-    display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:20px;
+    width:48px;height:48px;border-radius:var(--radius);background:var(--navy);color:var(--gold-soft);
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;
   }
+  .card .ic svg{width:24px;height:24px;stroke-width:1.75}
   .card h3{font-size:23px;color:var(--navy);margin-bottom:12px}
   .card p{font-size:15.5px;color:var(--muted);line-height:1.6}
 
@@ -177,19 +178,19 @@
     font-size:23px;color:var(--navy);margin-bottom:22px;padding-bottom:14px;
     border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
   }
-  .ag-title em{font-family:var(--sans);font-style:normal;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
-  .awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .awards-grid-wide{grid-template-columns:1fr}
+  .awards-grid{display:flex;flex-direction:column}
   .award{
-    display:flex;flex-direction:column;padding:20px 22px;background:var(--white);
-    border:1px solid var(--line);border-radius:4px;
+    display:grid;grid-template-columns:140px 1fr;gap:30px;align-items:baseline;
+    padding:22px 0;border-bottom:1px solid var(--line);
   }
+  .award:last-child{border-bottom:0}
   .award .yr{
-    font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:1.2px;
-    text-transform:uppercase;color:var(--gold);margin-bottom:9px;
+    font-family:var(--serif);font-size:25px;font-weight:700;color:var(--gold);
+    line-height:1.1;font-variant-numeric:tabular-nums;
   }
   .award b{display:block;color:var(--navy);font-family:var(--serif);font-size:20px;margin-bottom:6px;line-height:1.2}
   .award span{font-size:14.5px;color:var(--muted);line-height:1.55}
+  @media(max-width:560px){.award{grid-template-columns:1fr;gap:6px;padding:18px 0}}
 
   /* CASES */
   .case-block{
@@ -210,14 +211,16 @@
   .teach{background:radial-gradient(120% 90% at 80% 0,#2a3d57,var(--navy) 58%);color:var(--white)}
   .teach .sec-head h2{color:var(--white)}
   .teach .sec-head p{color:#b9c2cf}
-  .courses{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .course{
-    border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:30px 26px;
-    background:rgba(255,255,255,.03);transition:.25s;
-  }
-  .course:hover{background:rgba(255,255,255,.06);border-color:var(--gold-soft)}
+  .courses{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .course{padding:4px 32px;border-left:1px solid rgba(255,255,255,.14)}
+  .course:first-child{padding-left:0;border-left:0}
   .course h3{font-size:21px;color:var(--gold-soft);margin-bottom:10px}
   .course p{font-size:15px;color:#c6cdd8}
+  @media(max-width:760px){
+    .courses{grid-template-columns:1fr}
+    .course{border-left:0;border-top:1px solid rgba(255,255,255,.14);padding:24px 0}
+    .course:first-child{border-top:0;padding-top:0}
+  }
 
   /* FAQ */
   .faq{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
@@ -245,16 +248,17 @@
     border:1px solid var(--line);border-radius:4px;transition:.2s;
   }
   .ct:hover{border-color:var(--gold-soft);transform:translateX(4px)}
-  .ct .k{width:42px;height:42px;border-radius:50%;background:var(--paper-2);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:19px;flex-shrink:0}
+  .ct .k{width:42px;height:42px;border-radius:50%;background:var(--paper-2);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+  .ct .k svg{width:20px;height:20px;stroke-width:1.75}
   .ct small{display:block;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
   .ct b{font-size:17px;color:var(--navy);font-weight:600}
-  .form{background:var(--paper-2);border:1px solid var(--line);border-radius:6px;padding:38px 34px}
+  .form{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:38px 34px}
   .form h3{font-size:24px;color:var(--navy);margin-bottom:6px}
   .form>p{font-size:14.5px;color:var(--muted);margin-bottom:24px}
   .field{margin-bottom:16px}
   .field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px}
   .field input,.field textarea{
-    width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:3px;
+    width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:var(--radius);
     font-family:var(--sans);font-size:15px;background:var(--white);color:var(--ink);
   }
   .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
@@ -273,7 +277,7 @@
 
   @media(max-width:900px){
     .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr;gap:44px}
-    .cards,.courses{grid-template-columns:1fr 1fr}
+    .cards{grid-template-columns:1fr 1fr}
     .strip-grid{grid-template-columns:1fr 1fr}
     .awards-grid{grid-template-columns:1fr}
     /* целостный профиль: фото сверху, контент по центру */
@@ -292,7 +296,7 @@
     .burger{display:block}
   }
   @media(max-width:560px){
-    .cards,.courses,.strip-grid{grid-template-columns:1fr}
+    .cards,.strip-grid{grid-template-columns:1fr}
     section{padding:60px 0}
     .hero{padding:54px 0}
     .case-block{padding:26px 22px}
@@ -445,10 +449,11 @@
       <a href="#services">Услуги</a>
       <a href="#awards">Признание</a>
       <a href="#cases">Практика</a>
-      <a href="#faq">Вопросы</a>
-      <a href="#contact" class="nav-cta">Связаться</a>
+      <a href="#contact" class="nav-cta">Получить консультацию</a>
     </nav>
-    <button class="burger" id="burger" aria-label="Меню">☰</button>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
   </div>
 </header>
 
@@ -458,10 +463,9 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow">Адвокат · Санкт-Петербург</span>
         <h1>Ольга Дученко</h1>
         <div class="role">Руководитель практик трудового права и разрешения споров в сфере закупок 44-ФЗ / 223-ФЗ</div>
-        <p>Защищаю интересы бизнеса в трудовых конфликтах и закупочных спорах. Профессиональный стаж с 2006 года. Топовый специалист по трудовому праву по рейтингу «Российской газеты» 2025 года.</p>
+        <p>Защищаю интересы бизнеса в трудовых конфликтах и закупочных спорах. Топовый специалист по трудовому праву по рейтингу «Российской газеты» 2025 года.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Получить консультацию →</a>
           <a href="#services" class="btn btn-ghost">Направления работы</a>
@@ -495,8 +499,7 @@
     <div class="wrap">
       <div class="about-grid">
         <div>
-          <span class="eyebrow">Об адвокате</span>
-          <p class="lead" style="margin-top:14px">Комплексная юридическая поддержка бизнеса — от трудовых отношений до структурирования сделок и работы с госорганами.</p>
+          <p class="lead">Комплексная юридическая поддержка бизнеса — от трудовых отношений до структурирования сделок и работы с госорганами.</p>
           <p>Окончила юридический факультет Санкт-Петербургского государственного университета. Сопровождает деятельность международных и российских компаний в сферах строительства и проектирования, судостроения, инвестирования, производства, переработки отходов, IT и IP.</p>
           <p>Специализация — трудовое право: консультирование по широкому кругу вопросов, оформление трудовых отношений, кадровый аудит, режим коммерческой тайны, защита персональных данных работников, урегулирование сложных трудовых конфликтов на любой стадии. Также эксперт по структурированию сделок и сопровождению M&A.</p>
         </div>
@@ -515,38 +518,37 @@
   <section id="services" class="services">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Направления работы</span>
         <h2>Услуги для бизнеса</h2>
         <p>Практическая помощь на всех стадиях — от профилактики рисков до представительства в спорах.</p>
       </div>
       <div class="cards">
         <div class="card">
-          <div class="ic">§</div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"/><path d="M3 13a20 20 0 0 0 18 0"/></svg></div>
           <h3>Трудовое право</h3>
           <p>Консультирование, оформление трудовых отношений с разными категориями работников, кадровый аудит и разработка кадровой документации, защита персональных данных и коммерческой тайны.</p>
         </div>
         <div class="card">
-          <div class="ic">⚖</div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 20h10"/><path d="M6 6l6 -1l6 1"/><path d="M12 3v17"/><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0"/></svg></div>
           <h3>Трудовые споры</h3>
           <p>Урегулирование сложных конфликтов с работниками на любой стадии, выстраивание защиты с учётом актуальной судебной практики, снижение рисков переквалификации договоров.</p>
         </div>
         <div class="card">
-          <div class="ic">№</div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 6l7 -3l7 3"/><path d="M4 10v11"/><path d="M20 10v11"/><path d="M8 14v3"/><path d="M12 14v3"/><path d="M16 14v3"/></svg></div>
           <h3>Споры по 44-ФЗ / 223-ФЗ</h3>
           <p>Защита подрядчиков в спорах с заказчиками, исключение сведений из реестра недобросовестных поставщиков, сопровождение закупочных процедур.</p>
         </div>
         <div class="card">
-          <div class="ic">◇</div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/><path d="M9 12l2 2l4 -4"/></svg></div>
           <h3>Аудит и оценка рисков</h3>
           <p>Проверка бизнеса, правовые справки и аналитические заключения, оценка рисков и выработка мер по их устранению и митигации.</p>
         </div>
         <div class="card">
-          <div class="ic">✓</div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M9 13h6"/><path d="M9 17h6"/></svg></div>
           <h3>Договорная работа</h3>
           <p>Разработка контрактов различного назначения, аудит типовых договоров, взаимодействие с госорганами, в том числе при проведении проверок.</p>
         </div>
         <div class="card">
-          <div class="ic">⟁</div>
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h13l-4 -4"/><path d="M20 14h-13l4 4"/></svg></div>
           <h3>Сделки и M&A</h3>
           <p>Структурирование сделок, сопровождение приобретения активов и запуска инвестиционных проектов, представление интересов на переговорах с контрагентами.</p>
         </div>
@@ -558,12 +560,11 @@
   <section id="awards">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Признание</span>
         <h2>Награды и рейтинги</h2>
         <p>Профессиональная репутация, подтверждённая независимыми рейтингами и наградами.</p>
       </div>
       <div class="award-group">
-        <h3 class="ag-title">Ведущие российские рейтинги <em>2024–2026</em></h3>
+        <h3 class="ag-title">Ведущие российские рейтинги, 2024–2026</h3>
         <div class="awards-grid">
           <div class="award">
             <div class="yr">Band 1</div>
@@ -592,7 +593,7 @@
             <div><b>Диплом за арбитражные дела</b><span>В номинации «За успехи, достигнутые адвокатом при представительстве по арбитражным делам».</span></div>
           </div>
           <div class="award">
-            <div class="yr">★</div>
+            <div class="yr">Спец.</div>
             <div><b>Специальная награда</b><span>За успешное представительство клиентов по гражданским делам.</span></div>
           </div>
         </div>
@@ -614,7 +615,6 @@
   <section id="cases" class="services">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Практика</span>
         <h2>Ключевые направления успешных дел</h2>
         <p>Категории побед в судах и антимонопольных органах за последние годы.</p>
       </div>
@@ -663,7 +663,6 @@
   <section id="teach" class="teach">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Обучение и экспертиза</span>
         <h2>Лектор и автор курсов</h2>
         <p>Делюсь практикой на курсах повышения квалификации и в профессиональных изданиях.</p>
       </div>
@@ -679,7 +678,6 @@
   <section id="faq" class="services">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">Вопросы и ответы</span>
         <h2>Частые вопросы</h2>
         <p>Коротко о том, с чем я работаю и как строится сотрудничество.</p>
       </div>
@@ -698,7 +696,7 @@
         </details>
         <details>
           <summary>Как начать сотрудничество?</summary>
-          <p>Позвоните по телефону +7 812 602 02 25, напишите на olga.duchenko@kachkin.ru или оставьте заявку через форму ниже. Обсудим задачу и предложу формат работы. Стоимость консультации — 19 000 ₽ в час.</p>
+          <p>Позвоните по телефону +7 812 602 02 25, напишите на olga.duchenko@kachkin.ru или оставьте заявку через форму ниже. Обсудим задачу и предложу формат работы.</p>
         </details>
       </div>
     </div>
@@ -709,20 +707,19 @@
     <div class="wrap">
       <div class="contact-grid">
         <div class="contact">
-          <span class="eyebrow">Контакты</span>
-          <p class="lead" style="margin-top:14px">Обсудим вашу задачу и определим стратегию.</p>
+          <p class="lead">Обсудим вашу задачу и определим стратегию.</p>
           <p>Опишите ситуацию — отвечу, чем могу помочь, и предложу формат работы.</p>
           <div class="ct-list">
             <a class="ct" href="tel:+78126020225">
-              <span class="k">☎</span>
+              <span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/></svg></span>
               <span><small>Телефон</small><b>+7 812 602 02 25</b></span>
             </a>
             <a class="ct" href="mailto:olga.duchenko@kachkin.ru">
-              <span class="k">✉</span>
+              <span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"/><path d="M3 7l9 6l9 -6"/></svg></span>
               <span><small>E-mail</small><b>olga.duchenko@kachkin.ru</b></span>
             </a>
             <div class="ct">
-              <span class="k">⌖</span>
+              <span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/></svg></span>
               <span><small>Бюро</small><b>АБ «Качкин и Партнёры», Санкт-Петербург</b></span>
             </div>
           </div>
@@ -749,7 +746,7 @@
   <div class="wrap foot">
     <div>
       <div class="brand">Ольга Дученко</div>
-      <small>Адвокат · трудовое право · споры по 44-ФЗ и 223-ФЗ</small>
+      <small>Адвокат по трудовому праву и спорам по 44-ФЗ / 223-ФЗ</small>
     </div>
     <small>© 2026 Ольга Дученко. Информация на сайте не является публичной офертой.</small>
   </div>
@@ -758,8 +755,8 @@
 <script>
   // мобильное меню
   var b=document.getElementById('burger'),m=document.getElementById('menu');
-  b.addEventListener('click',function(){m.classList.toggle('open')});
-  m.addEventListener('click',function(e){if(e.target.tagName==='A')m.classList.remove('open')});
+  b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  m.addEventListener('click',function(e){if(e.target.tagName==='A'){m.classList.remove('open');b.setAttribute('aria-expanded','false')}});
   // форма
   function sendForm(e){
     e.preventDefault();
