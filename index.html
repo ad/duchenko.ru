@@ -66,8 +66,21 @@
     font-size:17px;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:.2px}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:.2px;text-wrap:balance}
+  .hero p,.sec-head p,.about p,.cb-intro,.faq details p{text-wrap:pretty}
   a{color:inherit;text-decoration:none}
+
+  /* ACCESSIBILITY */
+  .skip{
+    position:absolute;left:8px;top:-60px;z-index:100;
+    background:var(--navy);color:var(--white);padding:11px 20px;border-radius:3px;
+    font-size:14px;font-weight:600;transition:top .2s;
+  }
+  .skip:focus{top:8px}
+  a:focus-visible,button:focus-visible,summary:focus-visible,.consent input:focus-visible{
+    outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;
+  }
+  .field input:focus-visible,.field textarea:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
   .eyebrow{
     font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:2.5px;
@@ -108,6 +121,7 @@
   .btn-primary:hover{background:var(--navy-2);transform:translateY(-1px)}
   .btn-ghost{border-color:var(--navy);color:var(--navy)}
   .btn-ghost:hover{background:var(--navy);color:var(--white)}
+  .btn:active{transform:translateY(1px)}
   .portrait{position:relative;display:flex;flex-direction:column;align-items:center}
   .portrait picture{display:contents}
   .portrait .photo{
@@ -119,10 +133,10 @@
   .portrait .cap small{color:var(--gold);font-size:13.5px;letter-spacing:.5px}
 
   /* STRIP */
-  .strip{background:var(--navy);color:var(--white)}
+  .strip{background:radial-gradient(140% 180% at 50% -40%,#2c405c,var(--navy) 62%);color:var(--white)}
   .strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
   .stat{background:var(--navy);padding:34px 26px;text-align:center}
-  .stat .num{font-family:var(--serif);font-size:46px;font-weight:700;color:var(--gold-soft);line-height:1}
+  .stat .num{font-family:var(--serif);font-size:46px;font-weight:700;color:var(--gold-soft);line-height:1;font-variant-numeric:tabular-nums}
   .stat .lbl{font-size:13.5px;color:#b9c2cf;margin-top:8px;letter-spacing:.3px}
 
   /* SECTIONS */
@@ -193,7 +207,7 @@
   .case-item span{font-size:15px;color:var(--muted);line-height:1.55}
 
   /* EXPERTISE / TEACHING */
-  .teach{background:var(--navy);color:var(--white)}
+  .teach{background:radial-gradient(120% 90% at 80% 0,#2a3d57,var(--navy) 58%);color:var(--white)}
   .teach .sec-head h2{color:var(--white)}
   .teach .sec-head p{color:#b9c2cf}
   .courses{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -420,6 +434,8 @@
 </script>
 </head>
 <body>
+
+<a href="#top" class="skip">К содержанию</a>
 
 <header>
   <div class="wrap nav">
