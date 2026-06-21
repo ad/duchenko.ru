@@ -152,14 +152,40 @@
   .card p{font-size:15.5px;color:var(--muted);line-height:1.6}
 
   /* AWARDS */
-  .awards-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .award-group{margin-bottom:44px}
+  .award-group:last-child{margin-bottom:0}
+  .ag-title{
+    font-size:23px;color:var(--navy);margin-bottom:22px;padding-bottom:14px;
+    border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  }
+  .ag-title em{font-family:var(--sans);font-style:normal;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+  .awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .awards-grid-wide{grid-template-columns:1fr}
   .award{
-    display:flex;gap:20px;padding:26px 28px;background:var(--white);
+    display:flex;flex-direction:column;padding:20px 22px;background:var(--white);
     border:1px solid var(--line);border-radius:4px;
   }
-  .award .yr{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--gold);min-width:88px}
-  .award b{display:block;color:var(--navy);font-family:var(--serif);font-size:19px;margin-bottom:4px}
-  .award span{font-size:14.5px;color:var(--muted)}
+  .award .yr{
+    font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--gold);margin-bottom:9px;
+  }
+  .award b{display:block;color:var(--navy);font-family:var(--serif);font-size:20px;margin-bottom:6px;line-height:1.2}
+  .award span{font-size:14.5px;color:var(--muted);line-height:1.55}
+
+  /* CASES */
+  .case-block{
+    background:var(--white);border:1px solid var(--line);border-radius:4px;
+    padding:34px 36px;margin-bottom:22px;
+  }
+  .case-block:last-child{margin-bottom:0}
+  .cb-head{display:flex;align-items:baseline;gap:18px;margin-bottom:8px}
+  .cb-num{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--gold-soft);line-height:1}
+  .cb-head h3{font-size:25px;color:var(--navy)}
+  .cb-intro{color:var(--muted);font-size:16px;margin:0 0 24px 48px}
+  .case-list{display:grid;grid-template-columns:1fr 1fr;gap:18px 32px;margin-left:48px}
+  .case-item{padding-left:18px;border-left:2px solid var(--gold)}
+  .case-item b{display:block;font-family:var(--serif);font-size:18px;color:var(--navy);margin-bottom:4px;line-height:1.25}
+  .case-item span{font-size:15px;color:var(--muted);line-height:1.55}
 
   /* EXPERTISE / TEACHING */
   .teach{background:var(--navy);color:var(--white)}
@@ -247,6 +273,11 @@
     .cards,.courses,.strip-grid{grid-template-columns:1fr}
     section{padding:60px 0}
     .hero{padding:54px 0}
+    .case-block{padding:26px 22px}
+    .cb-intro,.case-list{margin-left:0}
+  }
+  @media(max-width:760px){
+    .case-list{grid-template-columns:1fr}
   }
 </style>
 
@@ -290,9 +321,12 @@
         "Корпоративное право"
       ],
       "award": [
-        "Группа 1 по трудовому праву, рейтинг «Российской газеты» 2025",
-        "Best Lawyers 2016–2021",
-        "Премия Адвокатской палаты Санкт-Петербурга 2016, 2022, 2025"
+        "ИД «Коммерсантъ» — Band 1 по трудовому и миграционному праву (Федеральный индивидуальный рейтинг)",
+        "«Российская газета» — Группа 1 по трудовому праву",
+        "«Право.ru-300» — практика в Федеральном рейтинге юридических фирм",
+        "Best Lawyers 2016–2021: трудовое право, судебные споры, миграционное право, законодательство о вознаграждении работников",
+        "Премия Адвокатской палаты Санкт-Петербурга за арбитражные дела (2016, 2022)",
+        "Специальная награда Адвокатской палаты Санкт-Петербурга за гражданские дела"
       ]
     },
     {
@@ -371,6 +405,7 @@
       <a href="#about">Об адвокате</a>
       <a href="#services">Услуги</a>
       <a href="#awards">Признание</a>
+      <a href="#cases">Практика</a>
       <a href="#faq">Вопросы</a>
       <a href="#contact" class="nav-cta">Связаться</a>
     </nav>
@@ -407,7 +442,7 @@
   <div class="strip">
     <div class="wrap"><div class="strip-grid">
       <div class="stat"><div class="num">18+</div><div class="lbl">лет в профессии</div></div>
-      <div class="stat"><div class="num">№1</div><div class="lbl">группа по трудовому праву, 2025</div></div>
+      <div class="stat"><div class="num">Band 1</div><div class="lbl">по трудовому праву в ведущих рейтингах</div></div>
       <div class="stat"><div class="num">6×</div><div class="lbl">в рейтинге Best Lawyers</div></div>
       <div class="stat"><div class="num">100+</div><div class="lbl">статей и публикаций</div></div>
     </div></div>
@@ -485,22 +520,98 @@
         <h2>Награды и рейтинги</h2>
         <p>Профессиональная репутация, подтверждённая независимыми рейтингами и наградами.</p>
       </div>
-      <div class="awards-grid">
-        <div class="award">
-          <div class="yr">2025</div>
-          <div><b>«Российская газета» — группа 1</b><span>Признана топовым специалистом по трудовому праву.</span></div>
+      <div class="award-group">
+        <h3 class="ag-title">Ведущие российские рейтинги <em>2024–2026</em></h3>
+        <div class="awards-grid">
+          <div class="award">
+            <div class="yr">Band 1</div>
+            <div><b>ИД «Коммерсантъ»</b><span>Федеральный индивидуальный рейтинг, высшая категория по направлению «Трудовое и миграционное право».</span></div>
+          </div>
+          <div class="award">
+            <div class="yr">Группа 1</div>
+            <div><b>«Российская газета»</b><span>Топ-специалисты юридического рынка в категории «Трудовое право».</span></div>
+          </div>
+          <div class="award">
+            <div class="yr">Топ</div>
+            <div><b>«Право.ru-300»</b><span>Практика под руководством Ольги регулярно признаётся одной из лучших в Федеральном рейтинге юридических фирм.</span></div>
+          </div>
         </div>
-        <div class="award">
-          <div class="yr">2025</div>
-          <div><b>Премия Адвокатской палаты СПб</b><span>За успехи при представительстве по гражданским делам.</span></div>
+      </div>
+
+      <div class="award-group">
+        <h3 class="ag-title">Награды Адвокатской палаты Санкт-Петербурга</h3>
+        <div class="awards-grid">
+          <div class="award">
+            <div class="yr">2016</div>
+            <div><b>Премия за арбитражные дела</b><span>«За успехи, достигнутые адвокатом при представительстве по арбитражным делам».</span></div>
+          </div>
+          <div class="award">
+            <div class="yr">2022</div>
+            <div><b>Диплом за арбитражные дела</b><span>В номинации «За успехи, достигнутые адвокатом при представительстве по арбитражным делам».</span></div>
+          </div>
+          <div class="award">
+            <div class="yr">★</div>
+            <div><b>Специальная награда</b><span>За успешное представительство клиентов по гражданским делам.</span></div>
+          </div>
         </div>
-        <div class="award">
-          <div class="yr">16/21</div>
-          <div><b>Best Lawyers</b><span>Лучшие юристы России: трудовое и миграционное право, судебные споры.</span></div>
+      </div>
+
+      <div class="award-group">
+        <h3 class="ag-title">Международные рейтинги</h3>
+        <div class="awards-grid awards-grid-wide">
+          <div class="award">
+            <div class="yr">2016–2021</div>
+            <div><b>Best Lawyers</b><span>Многие годы в официальном международном списке лучших юристов России: трудовое право (Labor &amp; Employment), судебные споры (Litigation), миграционное право (Immigration), законодательство о вознаграждении работников.</span></div>
+          </div>
         </div>
-        <div class="award">
-          <div class="yr">16/22</div>
-          <div><b>Премии Адвокатской палаты СПб</b><span>За успехи при представительстве по арбитражным делам.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section id="cases" class="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Практика</span>
+        <h2>Ключевые направления успешных дел</h2>
+        <p>Категории побед в судах и антимонопольных органах за последние годы.</p>
+      </div>
+
+      <div class="case-block">
+        <div class="cb-head">
+          <span class="cb-num">01</span>
+          <h3>Споры в сфере госзакупок (44-ФЗ и 223-ФЗ)</h3>
+        </div>
+        <p class="cb-intro">Защита прав поставщиков, подрядчиков и исполнителей в конфликтах с государственными заказчиками и ФАС России.</p>
+        <div class="case-list">
+          <div class="case-item"><b>Исключение и защита от включения в РНП</b><span>Представительство клиентов в антимонопольных органах и судах с доказыванием отсутствия недобросовестности в действиях исполнителей госконтрактов.</span></div>
+          <div class="case-item"><b>Обжалование решений заказчиков и ФАС</b><span>Дела о неправомерном отклонении заявок участников конкурсов и нарушении требований к закупочной документации.</span></div>
+          <div class="case-item"><b>Взыскание убытков из-за санкций</b><span>Защита исполнителей по госконтрактам в условиях форс-мажоров, санкционных ограничений и невозможности своевременной поставки импортного оборудования.</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <div class="cb-head">
+          <span class="cb-num">02</span>
+          <h3>Защита работодателей в трудовых конфликтах</h3>
+        </div>
+        <p class="cb-intro">Прецедентные правовые стратегии для крупного российского и иностранного бизнеса в условиях про-сотруднического тренда судов.</p>
+        <div class="case-list">
+          <div class="case-item"><b>Защита при увольнениях топ-менеджмента</b><span>Выигрыш процессов о расторжении договоров с ключевыми руководителями, предотвративший многомиллионные выплаты и компенсации.</span></div>
+          <div class="case-item"><b>Противодействие злоупотреблению правом</b><span>Защита компаний от недобросовестных действий работников («трудового шантажа») и сбора фиктивных доказательств.</span></div>
+          <div class="case-item"><b>Споры с дистанционными сотрудниками и релокантами</b><span>Создание судебной практики по законному прекращению отношений с уехавшими за границу работниками без нарушения валютного и миграционного законодательства.</span></div>
+          <div class="case-item"><b>Оспаривание предписаний ГИТ</b><span>Признание незаконными и отмена в судебном порядке актов, штрафов и предписаний Государственной инспекции труда.</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <div class="cb-head">
+          <span class="cb-num">03</span>
+          <h3>Коммерческий арбитраж и судебные расходы</h3>
+        </div>
+        <p class="cb-intro">Взыскание судебных издержек и защита гонораров от несоразмерного урезания судами.</p>
+        <div class="case-list">
+          <div class="case-item"><b>Награды за арбитражные дела</b><span>Дважды (2016 и 2022) удостоена наград Адвокатской палаты за успешное представительство в арбитражных судах, включая защиту крупных сумм судебных расходов.</span></div>
         </div>
       </div>
     </div>
