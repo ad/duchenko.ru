@@ -305,6 +305,34 @@
   @media(max-width:760px){
     .case-list{grid-template-columns:1fr}
   }
+  /* плашка о сборе статистики */
+  .cookie-notice[hidden]{display:none}
+  .cookie-notice{
+    position:fixed;left:14px;right:14px;bottom:14px;z-index:1000;
+    background:var(--navy);color:var(--paper);
+    border:1px solid var(--navy-2);border-radius:var(--radius);
+    box-shadow:0 10px 30px rgba(0,0,0,.26);
+    padding:14px 16px;max-width:420px;margin:0 auto;
+  }
+  .cookie-notice p{font-size:12.5px;line-height:1.45;color:#cdd5df;margin-bottom:11px}
+  .cookie-notice a{color:var(--gold-soft)}
+  .cookie-notice .cookie-actions{display:flex;gap:8px}
+  .cookie-notice .btn{padding:8px 16px;font-size:13px}
+  .cookie-notice .btn-primary{background:var(--gold);color:var(--white)}
+  .cookie-notice .btn-primary:hover{background:#9c3742}
+  .cookie-notice .btn-ghost{border-color:var(--gold-soft);color:var(--gold-soft)}
+  .cookie-notice .btn-ghost:hover{background:rgba(201,143,151,.14)}
+  /* десктоп: строка во всю ширину, прибитая к низу */
+  @media(min-width:720px){
+    .cookie-notice{
+      left:0;right:0;bottom:0;max-width:none;margin:0;border-radius:0;
+      border:0;border-top:1px solid var(--navy-2);
+      display:flex;align-items:center;gap:24px;
+      padding:14px clamp(24px,6vw,80px);
+    }
+    .cookie-notice p{margin:0;font-size:14px;flex:1}
+    .cookie-notice .cookie-actions{flex-shrink:0}
+  }
 </style>
 
 <script type="application/ld+json">
@@ -766,14 +794,23 @@
     return false;
   }
 </script>
-<!-- Yandex.Metrika counter (отложенная загрузка до первого взаимодействия) -->
+<!-- плашка согласия на сбор статистики -->
+<div class="cookie-notice" id="cookie-notice" role="dialog" aria-live="polite" aria-label="Согласие на сбор статистики" hidden>
+  <p>Сайт использует Яндекс.Метрику для обезличенной статистики посещений.</p>
+  <div class="cookie-actions">
+    <button class="btn btn-primary" id="cookie-agree" type="button">Согласен</button>
+    <button class="btn btn-ghost" id="cookie-decline" type="button">Не сейчас</button>
+  </div>
+</div>
+
+<!-- Yandex.Metrika counter (загрузка только после согласия) -->
 <script type="text/javascript">
     // ym-заглушка определена сразу: вызовы (reachGoal) ставятся в очередь до загрузки скрипта
     window.ym = window.ym || function(){(window.ym.a=window.ym.a||[]).push(arguments)};
     window.ym.l = 1*new Date();
 
     (function(){
-      var loaded=false;
+      var KEY='stat-consent', loaded=false;
       function loadMetrika(){
         if(loaded) return; loaded=true;
         var r='https://mc.yandex.ru/metrika/tag.js?id=110036950';
@@ -781,12 +818,23 @@
         k.async=1; k.src=r; a.parentNode.insertBefore(k,a);
         ym(110036950,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
       }
-      var ev=['scroll','touchstart','click','keydown'];
-      function onFirst(){ ev.forEach(function(e){window.removeEventListener(e,onFirst);}); loadMetrika(); }
-      ev.forEach(function(e){ window.addEventListener(e,onFirst,{once:true,passive:true}); });
-      // фолбэк: загрузить в простое, если взаимодействия не было
-      if('requestIdleCallback' in window){ requestIdleCallback(loadMetrika,{timeout:5000}); }
-      else { setTimeout(loadMetrika,5000); }
+      function agreed(){ try{return localStorage.getItem(KEY)==='1';}catch(e){return false;} }
+      function declined(){ try{return sessionStorage.getItem(KEY)==='0';}catch(e){return false;} }
+
+      if(agreed()){ loadMetrika(); return; }
+      if(declined()){ return; }
+
+      var box=document.getElementById('cookie-notice');
+      if(!box) return;
+      box.hidden=false;
+      document.getElementById('cookie-agree').addEventListener('click',function(){
+        try{localStorage.setItem(KEY,'1');}catch(e){}
+        box.hidden=true; loadMetrika();
+      });
+      document.getElementById('cookie-decline').addEventListener('click',function(){
+        try{sessionStorage.setItem(KEY,'0');}catch(e){}
+        box.hidden=true;
+      });
     })();
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/110036950" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
