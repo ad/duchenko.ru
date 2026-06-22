@@ -265,6 +265,7 @@
   .consent{display:flex;gap:11px;align-items:flex-start;margin-bottom:20px;cursor:pointer}
   .consent input{margin-top:3px;width:17px;height:17px;flex-shrink:0;accent-color:var(--navy);cursor:pointer}
   .consent span{font-size:12.5px;line-height:1.5;color:var(--muted)}
+  .consent span a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
 
   /* FOOTER */
   footer{background:var(--ink);color:#aab3c0;padding:44px 0}
@@ -758,7 +759,7 @@
           <div class="field"><label>Кратко о задаче</label><textarea name="msg" placeholder="Опишите ситуацию"></textarea></div>
           <label class="consent">
             <input type="checkbox" name="consent" required>
-            <span>Я даю согласие на обработку моих персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» для обработки заявки.</span>
+            <span>Я даю согласие на обработку моих персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» для обработки заявки и принимаю <a href="/privacy.html" target="_blank" rel="noopener">Политику обработки персональных данных</a>.</span>
           </label>
           <button class="btn btn-primary" type="submit">Отправить заявку</button>
         </form>
@@ -774,7 +775,7 @@
       <div class="brand">Ольга Дученко</div>
       <small>Адвокат по трудовому праву и спорам по 44-ФЗ / 223-ФЗ</small>
     </div>
-    <small>© 2026 Ольга Дученко. Информация на сайте не является публичной офертой.</small>
+    <small>© 2026 Ольга Дученко. Информация на сайте не является публичной офертой. <a href="/privacy.html">Политика обработки персональных данных</a></small>
   </div>
 </footer>
 
@@ -796,7 +797,7 @@
 </script>
 <!-- плашка согласия на сбор статистики -->
 <div class="cookie-notice" id="cookie-notice" role="dialog" aria-live="polite" aria-label="Согласие на сбор статистики" hidden>
-  <p>Сайт использует Яндекс.Метрику для обезличенной статистики посещений.</p>
+  <p>Сайт использует Яндекс.Метрику для обезличенной статистики посещений. Подробнее в <a href="/privacy.html">Политике обработки персональных данных</a>.</p>
   <div class="cookie-actions">
     <button class="btn btn-primary" id="cookie-agree" type="button">Согласен</button>
     <button class="btn btn-ghost" id="cookie-decline" type="button">Не сейчас</button>
